@@ -38,21 +38,21 @@
             greeting = "Good evening";
         }
 
-        // Arrays from your code
+        // Arrays sorted alphabetically, with duplicate "Wifey"
         const adjectives = [
-            "Beautiful", "Lovely", "Amazing", "Stunning", "Wonderful", "Adorable",
-            "Gorgeous", "Sweet", "Precious", "Radiant", "Delightful", "Incredible",
-            "Fantastic", "Enchanting", "Captivating", "Fabulous", "Irresistible",
-            "Magical", "Marvelous", "Remarkable", "Sensational", "Thrilling",
-            "Exquisite", "Dazzling", "Dreamy", "Inspiring", "Fantabulous",
-            "Mesmerizing", "Treasured", "Sexy"
+            "Adorable", "Amazing", "Beautiful", "Captivating", "Dazzling", "Delightful",
+            "Dreamy", "Enchanting", "Exquisite", "Fabulous", "Fantabulous", "Fantastic",
+            "Gorgeous", "Incredible", "Inspiring", "Irresistible", "Lovely", "Magical",
+            "Marvelous", "Mesmerizing", "Precious", "Radiant", "Remarkable",
+            "Sensational", "Sexy", "Stunning", "Sweet", "Thrilling", "Treasured",
+            "Wonderful"
         ];
 
         const descriptors = [
-            "Lady", "Wifey", "Sweetheart", "Darling", "Love", "Angel", "Princess",
-            "Queen", "Treasure", "Hottie", "Soulmate", "Sunshine", "Flower",
-            "Babe", "Dream", "Momma", "Woman", "Cutie", "Lover", "Delight",
-            "Sweetie", "Hot Tomale", "Pearl"
+            "Angel", "Babe", "Cutie", "Darling", "Delight", "Dream", "Flower", "Hot Tomale",
+            "Hottie", "Lady", "Love", "Lover", "Momma", "Pearl", "Princess", "Queen",
+            "Soulmate", "Sunshine", "Sweetheart", "Sweetie", "Treasure", "Wifey", "Wifey",
+            "Woman"
         ];
 
         const lovingNotes = [
@@ -145,7 +145,7 @@
             "You’re the best part of growing old together! 👴👵💞"
         ];
 
-        // Function to get a unique combination without overlap
+        // Function to get a unique combination with three-letter check
         function getUniqueMessage() {
             while (true) {
                 const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
@@ -157,15 +157,23 @@
                 const adjLower = adjective.toLowerCase();
                 const descLower = descriptor.toLowerCase();
 
-                // Check for no overlap between adjective and note or descriptor
-                if (!noteText.includes(adjLower) && 
-                    !descLower.includes(adjLower) && 
-                    !noteText.split(' ').some(word => word.startsWith(adjLower)) &&
-                    !descLower.split(' ').some(word => word.startsWith(adjLower))) {
-                    // Extra check for "sweet" variants
-                    if (adjLower === "sweet" && (descLower.includes("sweetie") || descLower.includes("sweetheart") || noteText.includes("sweet"))) {
+                // Base overlap check for adjective against note and descriptor
+                const adjInNote = noteText.includes(adjLower) || noteText.split(' ').some(word => adjLower.startsWith(word.slice(0, adjLower.length)));
+                const adjInDesc = descLower.includes(adjLower) || descLower.split(' ').some(word => adjLower.startsWith(word.slice(0, adjLower.length)));
+
+                if (!adjInNote && !adjInDesc) {
+                    // General first-three-letters check across all components
+                    const adjFirstThree = adjLower.slice(0, 3);
+                    const descFirstThree = descLower.slice(0, 3);
+                    const noteWords = noteText.split(' ');
+                    const noteFirstThrees = new Set(noteWords.filter(word => word.length >= 3).map(word => word.slice(0, 3)));
+
+                    if (adjFirstThree === descFirstThree || 
+                        noteFirstThrees.has(adjFirstThree) || 
+                        noteFirstThrees.has(descFirstThree)) {
                         continue;
                     }
+
                     return [adjective, descriptor, lovingNote];
                 }
             }
