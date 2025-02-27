@@ -19,8 +19,8 @@
     <main>
         <section>
             <h2>Check Out a Love Note</h2>
-            <p>Here’s a little love note, just for you:</p>
-            <p id="love-note" style="font-style: italic; color: #2c3e50;"></p>
+            <p style="font-style: italic;">Here’s a little love note, just for you:</p>
+            <p id="love-note" style="color: #2c3e50;"></p>
         </section>
     </main>
     <footer>
@@ -38,7 +38,7 @@
             greeting = "Good evening";
         }
 
-        // Arrays from your Python code
+        // Arrays from your code
         const adjectives = [
             "Beautiful", "Lovely", "Amazing", "Stunning", "Wonderful", "Adorable",
             "Gorgeous", "Sweet", "Precious", "Radiant", "Delightful", "Incredible",
@@ -122,7 +122,7 @@
             "🌊🌳🏡🌳 + 🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕= 😂🤣😂🤣 (do you remember?)",
             "Want to go on a cruise? 🛳️🌴🌊",
             "You are a perfect travel companion! ✈️🗺️💕",
-            "Thank you for all the planning you do for our trips! It makes them so incredibly amazing! 📅🌟🏖️",
+            "Thankk you for all the planning you do for our trips! It makes them so incredibly amazing! 📅🌟🏖️",
             "Let's have sex! 😳🤪😍",
             "You’re hotter than a campfire! 🔥😈😘",
             "Sometimes you have really big shits! 💩💩😂",
@@ -145,15 +145,35 @@
             "You’re the best part of growing old together! 👴👵💞"
         ];
 
-        // Randomly select elements
-        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const randomDescriptor = descriptors[Math.floor(Math.random() * descriptors.length)];
-        const randomNote = lovingNotes[Math.floor(Math.random() * lovingNotes.length)];
+        // Function to get a unique combination without overlap
+        function getUniqueMessage() {
+            while (true) {
+                const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+                const descriptor = descriptors[Math.floor(Math.random() * descriptors.length)];
+                const lovingNote = lovingNotes[Math.floor(Math.random() * lovingNotes.length)];
 
-        // Combine into full message
-        const fullMessage = `${greeting}, ${randomAdjective} ${randomDescriptor}! ${randomNote}`;
+                // Convert to lowercase and strip emojis for comparison
+                const noteText = lovingNote.replace(/[^\w\s]/g, '').toLowerCase();
+                const adjLower = adjective.toLowerCase();
+                const descLower = descriptor.toLowerCase();
 
-        // Display the note
+                // Check for no overlap between adjective and note or descriptor
+                if (!noteText.includes(adjLower) && 
+                    !descLower.includes(adjLower) && 
+                    !noteText.split(' ').some(word => word.startsWith(adjLower)) &&
+                    !descLower.split(' ').some(word => word.startsWith(adjLower))) {
+                    // Extra check for "sweet" variants
+                    if (adjLower === "sweet" && (descLower.includes("sweetie") || descLower.includes("sweetheart") || noteText.includes("sweet"))) {
+                        continue;
+                    }
+                    return [adjective, descriptor, lovingNote];
+                }
+            }
+        }
+
+        // Get unique combination and display it
+        const [adjective, descriptor, lovingNote] = getUniqueMessage();
+        const fullMessage = `${greeting}, ${adjective} ${descriptor}! ${lovingNote}`;
         document.getElementById("love-note").textContent = fullMessage;
     </script>
 </body>
