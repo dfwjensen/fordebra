@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Out a Love Note - Love Notes for Wifey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Love Notes for Wifey</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="love-note.html">Check Out a Love Note</a>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Check Out a Love Note</h2>
+            <p>Here’s a little love note, just for you:</p>
+            <p id="love-note" style="font-style: italic; color: #2c3e50;"></p>
+        </section>
+    </main>
+    <footer>
+        <p>Designed by Grok 3, created by xAI</p>
+    </footer>
+    <script>
+        // Time-appropriate greetings based on client’s local time
+        const hour = new Date().getHours();
+        let greeting;
+        if (hour >= 0 && hour < 12) {
+            greeting = "Good morning";
+        } else if (hour >= 12 && hour < 17) {
+            greeting = "Good afternoon";
+        } else {
+            greeting = "Good evening";
+        }
+
+        // Arrays from your Python code
+        const adjectives = [
+            "Beautiful", "Lovely", "Amazing", "Stunning", "Wonderful", "Adorable",
+            "Gorgeous", "Sweet", "Precious", "Radiant", "Delightful", "Incredible",
+            "Fantastic", "Enchanting", "Captivating", "Fabulous", "Irresistible",
+            "Magical", "Marvelous", "Remarkable", "Sensational", "Thrilling",
+            "Exquisite", "Dazzling", "Dreamy", "Inspiring", "Fantabulous",
+            "Mesmerizing", "Treasured", "Sexy"
+        ];
+
+        const descriptors = [
+            "Lady", "Wifey", "Sweetheart", "Darling", "Love", "Angel", "Princess",
+            "Queen", "Treasure", "Hottie", "Soulmate", "Sunshine", "Flower",
+            "Babe", "Dream", "Momma", "Woman", "Cutie", "Lover", "Delight",
+            "Sweetie", "Hot Tomale", "Pearl"
+        ];
+
+        const lovingNotes = [
+            "I love you! ❤️😘",
+            "Thinking of you is my favourite thing to do! 💭😊",
+            "You amaze me every day! 🌟✨",
+            "You’re my whole world! 💖🌍",
+            "I’m so glad you said yes (and keep saying it)! 🍀🤗",
+            "You make my heart smile! 😊💓",
+            "You’re such a freaking good wife! 👰💍",
+            "You are such an incredible mother to each of our children! 🌺👩‍👧",
+            "You’re the best grandma ever! 👵🌟",
+            "I adore you! 🥰💕✨",
+            "You light up my life! ✨🌞",
+            "You’re my soulmate! 💞💑",
+            "I cherish every moment with you! ⏳❤️",
+            "You are the greatest treasure I have ever found! 💎🏆",
+            "You make every day better! 🌈😊",
+            "Your smile lights up my world! 😁✨",
+            "🎶You are my sunshine, my only sunshine... 🎵☀️🌻",
+            "You’re simply the best! 🥇🎉",
+            "I am so grateful for you! Every day! 🙏💖",
+            "You’re such an incredible blessing to everyone you meet! 😇🌟",
+            "You make me so happy! 🎉😊",
+            "I can’t stop thinking of you! 🧠💭(trust me, I've tried 😁)",
+            "You’re my dream come true - and it was a GOOD dream! 🌠💕",
+            "You’re so beautiful inside and out! 🌹💖",
+            "You are my forever love! 💍∞",
+            "You inspire me to be the best version of myself! 💡🌟",
+            "You still make my heart skip a beat every time you walk into the room! 💓😍",
+            "I love your beautiful smile! 😄🌞💖",
+            "You are a perfect fit for my heart! 💗😊",
+            "You’re my perfect match! 🔗💞",
+            "I thank God for you every day! 🙌❤️",
+            "I'm so grateful that Jessica has you in her life! 👩‍👧💕",
+            "Life with you is just so stinkin' wonderful! 🌼✨",
+            "I love how you love me! You're very good at it! 🥇😘",
+            "You are so dang desirable! 🔥😘",
+            "You’re a gift to our family! 🎀👨‍👩‍👧",
+            "You’re my favorite person! 🌟💖",
+            "You inspire everyone who knows you to be better! 🚀🌍",
+            "You ROCK my world! 🎸🤘",
+            "I love your laughter! 😂🎉",
+            "You’re my one and only! 💑💍",
+            "The ocean! The OCEAN! THE OCEAN!! 🌊🐳",
+            "You make every day brighter! 🌞✨",
+            "I’m so in love with you! 😍❤️",
+            "You constantly make me smile! 😊🌼",
+            "You’re my best friend! 👭💕",
+            "I love that I get to see the real you - every day! 👀😊",
+            "I love your sweet, gentle heart! 🕊️💗",
+            "You’re so special to me! 💝🎁",
+            "You’re my happy place! 🏝️😊",
+            "I love just sitting beside you! 🛋️🤗",
+            "You’re my forever and always! ∞💞",
+            "We are still Standing Always Together! ❤️🤝",
+            "You make my world complete! 🌍💖",
+            "I love your warmth (except for the menopause part)! 😅🔥",
+            "You’re so fun to be with! 🎈🎉😊",
+            "I love you more every day! 💗📈",
+            "You’re my heart’s home! 🏠❤️",
+            "I LOVE your enthusiasm! 🎉✨",
+            "Is it weird that the character Polk-a-roo has figured prominently in our life? 🤷‍♂️😁🤡",
+            "Wanna get a donut? 😁🍩",
+            "I love camping with you! ⛺🌲🔥",
+            "Go to sleep. GO to SLEEP! GO TO SLEEP!!!! 😁😴",
+            "🌊🌳🏡🌳 + 🖕🖕🖕🖕🖕🖕🖕🖕🖕🖕= 😂🤣😂🤣 (do you remember?)",
+            "Want to go on a cruise? 🛳️🌴🌊",
+            "You are a perfect travel companion! ✈️🗺️💕",
+            "Thankk you for all the planning you do for our trips! It makes them so incredibly amazing! 📅🌟🏖️",
+            "Let's have sex! 😳🤪😍",
+            "You’re hotter than a campfire! 🔥😈😘",
+            "Sometimes you have really big shits! 💩💩😂",
+            "You're the sexiest 'cat lady' in the world! 😻🔥😘",
+            "I have loved and cherished every year we have been together! ❤️💍🌟",
+            "How does life with you keep getting better? 🌈😊💖",
+            "Thanks for taking such good care of me! 🤗🙏❤️",
+            "Thanks for taking such good care for our home and family! 🏠👨‍👩‍👧🌼",
+            "You. Bikini. 'nuff said! 👙😈🔥",
+            "Thank you for bringing so much peace to our home! 🕊️🏡😊",
+            "You are so good at packing for our trips! Thank you!! 🧳🌟🙏",
+            "You are such a beautiful woman! Thanks for taking such good care of yourself! 🌹💖✨",
+            "I still feel this way! https://www.youtube.com/watch?v=cPLctS4kqk8 🎶❤️😊",
+            "Watching you with our grandkids makes me smile! 👶😊💖",
+            "How did I get a trophy wife? 🏆🔥😘",
+            "You’re my favorite adventure yet! 🌄❤️✨",
+            "I love laughing together with you! 😂🤗💕",
+            "Love taking my hot wife on date night! Let's plan one! 🔥🍷😘",
+            "Thanks for making our house a home! 🏡🕯️😊",
+            "You’re the best part of growing old together! 👴👵💞"
+        ];
+
+        // Randomly select elements
+        const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const randomDescriptor = descriptors[Math.floor(Math.random() * descriptors.length)];
+        const randomNote = lovingNotes[Math.floor(Math.random() * lovingNotes.length)];
+
+        // Combine into full message
+        const fullMessage = `${greeting}, ${randomAdjective} ${randomDescriptor}! ${randomNote}`;
+
+        // Display the note
+        document.getElementById("love-note").textContent = fullMessage;
+    </script>
+</body>
+</html>
